@@ -98,9 +98,9 @@ storiesOf("InterviewerListItem", module)
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+      setInterviewer={action("setInterviewer")}
     />
-  ));;
+  ));
 
 
 const interviewers = [
