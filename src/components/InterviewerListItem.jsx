@@ -1,3 +1,5 @@
+import "components/InterviewerListItem.scss"
+
 export default function InterviewerListItem(props) {
   return (
     <li className="interviewers__item">
