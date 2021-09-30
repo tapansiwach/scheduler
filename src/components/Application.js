@@ -64,6 +64,13 @@ export default function Application(props) {
     key={appointment.id}
   />)
 
+  useEffect(() => {
+    axios.get("/api/days")
+      .then(response => {
+        setDays(response.data)
+      });
+  }, [])
+
   return (
     <main className="layout">
       <section className="sidebar">
