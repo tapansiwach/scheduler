@@ -63,6 +63,8 @@ export default function Application(props) {
     day: "Monday",
     appointments: {}
   });
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState({ ...state, days });
 
   const parsedAppointments = appointments.map(appointment => <Appointment
     {...appointment}
