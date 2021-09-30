@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import DayList from "./DayList";
 import "components/Application.scss";
+import Appointment from "./Appointment";
 
 const days = [
   {
@@ -46,7 +47,7 @@ const appointments = [
     id: 4,
     time: "3pm",
     interview: {
-      student: "Lydia Miller-Jones",
+      student: "Archie Cohen",
       interviewer: {
         id: 3,
         name: "Mildred Nazir",
@@ -58,18 +59,26 @@ const appointments = [
     id: 5,
     time: "4pm",
     interview: {
-      student: "Lydia Miller-Jones",
+      student: "Maria Boucher",
       interviewer: {
         id: 4,
         name: "Cohana Roy",
         avatar: "https://i.imgur.com/FK8V841.jpg",
       }
     }
+  },
+  {
+    id: 6,
+    time: "5pm",
   }
 ];
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
+  const parsedAppointments = appointments.map(appointment => <Appointment
+    {...appointment}
+    key={appointment.id}
+  />)
 
   return (
     <main className="layout">
@@ -93,7 +102,7 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />      </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {parsedAppointments}
       </section>
     </main>
   );
