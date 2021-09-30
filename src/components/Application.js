@@ -57,8 +57,13 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState("Monday");
+
+  const [state, setState] = useState({
+    days: [],
+    day: "Monday",
+    appointments: {}
+  });
+
   const parsedAppointments = appointments.map(appointment => <Appointment
     {...appointment}
     key={appointment.id}
