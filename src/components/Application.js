@@ -64,7 +64,7 @@ export default function Application(props) {
     appointments: {}
   });
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState({ ...state, days });
+  const setDays = days => setState(prev => ({ ...prev, days }));
 
   const parsedAppointments = appointments.map(appointment => <Appointment
     {...appointment}
