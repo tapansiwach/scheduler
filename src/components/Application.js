@@ -29,6 +29,18 @@ export default function Application(props) {
       });
   }, [])
 
+  useEffect(() => {
+    Promise.all([
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
+    ]).then(all => {
+      console.log("days", all[0])
+      console.log("appointments", all[1])
+      console.log("interviewers", all[2])
+    }).catch(error => console.log(error.message));
+  }, [])
+
   return (
     <main className="layout">
       <section className="sidebar">
