@@ -11,7 +11,8 @@ export default function Application(props) {
   const [state, setState] = useState({
     days: [],
     day: "Monday",
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
   const setDay = day => setState({ ...state, day });
   const setDays = days => setState(prev => ({ ...prev, days }));
