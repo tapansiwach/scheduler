@@ -21,3 +21,20 @@ export function getAppointmentsForDay(state, day) {
   const result = appointments.filter(x => matchedDay.appointments.includes(x.id));
   return result;
 }
+
+
+
+export function getInterview(state, interview) {
+
+}
+
+/* (sample) returned object looks like this
+{
+  "student": "Lydia Miller-Jones",
+  "interviewer": {
+    "id": 1,
+    "name": "Sylvia Palmer",
+    "avatar": "https://i.imgur.com/LpaY82x.png"
+  }
+}
+*/
