@@ -10,7 +10,7 @@ export default function useVisualMode(initial) {
   }
 
   function back() {
-    if (history.length > 0) {
+    if (history.length > 1) {
       // make a copy of history so we can pop from it directly instead of having to use setHistory
       const copy = [...history];
       copy.pop();
