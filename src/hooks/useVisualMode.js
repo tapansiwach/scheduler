@@ -4,7 +4,7 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  function transition(subsequent, replace) {
+  function transition(subsequent, replace = false) {
     // if it's a replace request...
     if (replace) {
       // delete the last item before adding to the history
