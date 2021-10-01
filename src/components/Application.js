@@ -35,6 +35,8 @@ export default function Application(props) {
       setState(prev => ({ ...prev, appointments: all[1].data }))
 
       // console.log("interviewers", all[2].data)
+      // setState.interviewers
+      setState(prev => ({ ...prev, interviewers: all[2].data }))
     })
       .catch(error => console.log(error.message));
   }, [])
