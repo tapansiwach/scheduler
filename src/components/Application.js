@@ -17,17 +17,10 @@ export default function Application(props) {
 
   const dailyAppointments = []
 
-  const parsedAppointments = dailyAppointments.map(appointment => <Appointment
+  const parsedAppointments = Object.values(state.appointments).map(appointment => <Appointment
     {...appointment}
     key={appointment.id}
   />)
-
-  useEffect(() => {
-    axios.get("/api/days")
-      .then(response => {
-        setDays(response.data)
-      });
-  }, [])
 
   useEffect(() => {
     Promise.all([
@@ -35,11 +28,20 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then(all => {
-      console.log("days", all[0])
-      console.log("appointments", all[1])
-      console.log("interviewers", all[2])
-    }).catch(error => console.log(error.message));
+      console.log("days", all[0].data)
+      // setState.days
+      setDays(all[0].data)
+
+      console.log("appointments", all[1].data)
+      // setState.appointments
+      setState(prev => ({ ...prev, appointments: all[1].data }))
+
+      // console.log("interviewers", all[2].data)
+    })
+      .catch(error => console.log(error.message));
   }, [])
+
+  console.log("state", state)
 
   return (
     <main className="layout">
