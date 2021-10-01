@@ -30,11 +30,11 @@ export default function Application(props) {
       // setState.days
       setDays(all[0].data)
 
-      // console.log("appointments", all[1].data)
+      console.log("appointments", all[1].data)
       // setState.appointments
       setState(prev => ({ ...prev, appointments: all[1].data }))
 
-      // console.log("interviewers", all[2].data)
+      console.log("interviewers", all[2].data)
       // setState.interviewers
       setState(prev => ({ ...prev, interviewers: all[2].data }))
     })
@@ -44,10 +44,24 @@ export default function Application(props) {
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
   // console.log("dailyAppointments", dailyAppointments);
-  const parsedAppointments = dailyAppointments.map(appointment => <Appointment
-    {...appointment}
-    key={appointment.id}
-  />)
+  const parsedAppointments = dailyAppointments
+    .map(appointment => <Appointment
+      {...appointment}
+      key={appointment.id}
+    />)
+
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
 
   return (
     <main className="layout">
