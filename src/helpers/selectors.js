@@ -1,4 +1,9 @@
-//... returns an array of appointments for that day
+/**
+ * [returns an array of appointments for that day]
+ * @param {object} state 
+ * @param {string} day 
+ * @returns {object} appointments
+ */
 export function getAppointmentsForDay(state, day) {
   // if incoming data doesn't contain any days, return an empty array
   if (state.days.length === 0) return [];
@@ -23,7 +28,12 @@ export function getAppointmentsForDay(state, day) {
 }
 
 
-
+/**
+ * returned the interview object from the interviewId
+ * @param {object} state 
+ * @param {object} interview 
+ * @returns {object} interview
+ */
 export function getInterview(state, interview) {
   if (interview === null) return null;
 
