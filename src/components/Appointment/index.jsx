@@ -13,10 +13,13 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 
 export default function Appointment(props) {
+  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
+
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {props.interview ? <Show {...props.interview} /> : <Empty />}
+      {mode === EMPTY && <Empty onAdd={() => console.log("clicked onAdd")} />}
+      {mode === SHOW && <Show {...props.interview} />}
     </article>
   );
 }
