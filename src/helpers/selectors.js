@@ -34,7 +34,26 @@ export function getAppointmentsForDay(state, day) {
  * @param {string} day 
  */
 export function getInterviewersForDay(state, day) {
+  // if incoming data doesn't contain any days, return an empty array
+  if (state.days.length === 0) return [];
 
+  // find the days in the input state whose name matches with the provided day string
+  const filteredDays = state.days.filter(x => x.name === day);
+
+  // if no matching days are found in the state, return an empty array
+  if (filteredDays.length === 0) {
+    return [];
+  }
+
+  // get the found day
+  const matchedDay = filteredDays[0]
+
+  // extract the array of interviewers from the state
+  const interviewers = Object.values(state.interviewers);
+
+  // find the interviewers whose id is in the filtered day's interviewers
+  const result = interviewers.filter(x => matchedDay.interviewers.includes(x.id));
+  return result;
 }
 
 
