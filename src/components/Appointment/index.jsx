@@ -23,11 +23,11 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show {...props.interview} />}
       {mode === CREATE && <Form
-        name="name"
+        name=""
         // interviewer={}
         interviewers={[]}
         onSave={() => console.log("clicked onSave")}
-        onCancel={() => console.log("clicked onCancel")}
+        onCancel={() => back()}
       />}
     </article>
   );
