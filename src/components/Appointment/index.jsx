@@ -9,8 +9,10 @@ import Status from "./Status";
 import Error from "./Error";
 
 import useVisualMode from "hooks/useVisualMode";
+import Form from "./Form";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
+const CREATE = "CREATE"
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
@@ -18,8 +20,15 @@ export default function Appointment(props) {
   return (
     <article className="appointment">
       <Header time={props.time} />
-      {mode === EMPTY && <Empty onAdd={() => console.log("clicked onAdd")} />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show {...props.interview} />}
+      {mode === CREATE && <Form
+        name="name"
+        // interviewer={}
+        interviewers={[]}
+        onSave={() => console.log("clicked onSave")}
+        onCancel={() => console.log("clicked onCancel")}
+      />}
     </article>
   );
 }
