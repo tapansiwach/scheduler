@@ -4,7 +4,7 @@ import axios from "axios";
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 
 export default function Application(props) {
 
@@ -30,11 +30,11 @@ export default function Application(props) {
       // setState.days
       setDays(all[0].data)
 
-      console.log("appointments", all[1].data)
+      // console.log("appointments", all[1].data)
       // setState.appointments
       setState(prev => ({ ...prev, appointments: all[1].data }))
 
-      console.log("interviewers", all[2].data)
+      // console.log("interviewers", all[2].data)
       // setState.interviewers
       setState(prev => ({ ...prev, interviewers: all[2].data }))
     })
@@ -44,14 +44,12 @@ export default function Application(props) {
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
   // console.log("dailyAppointments", dailyAppointments);
-  const parsedAppointments = dailyAppointments
-    .map(appointment => <Appointment
-      {...appointment}
-      key={appointment.id}
-    />)
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
+    // console.log("interview", interview);
+    const interviewers = getInterviewersForDay(state, state.day)
+    console.log("interviewers", interviewers);
 
     return (
       <Appointment
@@ -59,6 +57,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   });
@@ -85,7 +84,7 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />      </section>
       <section className="schedule">
-        {parsedAppointments}
+        {schedule}
       </section>
     </main>
   );
