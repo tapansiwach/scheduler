@@ -29,6 +29,17 @@ export function getAppointmentsForDay(state, day) {
 
 
 /**
+ * [returns an array of interviewers for that day]
+ * @param {object} state 
+ * @param {string} day 
+ */
+export function getInterviewersForDay(state, day) {
+
+}
+
+
+
+/**
  * returned the interview object from the interviewId
  * @param {object} state 
  * @param {object} interview 
