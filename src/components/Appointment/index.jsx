@@ -32,11 +32,16 @@ export default function Appointment(props) {
       });
   }
 
+  function cancel() {
+    props.cancelInterview(props.id);
+    transition(EMPTY);
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show {...props.interview} />}
+      {mode === SHOW && <Show {...props.interview} onDelete={cancel} />}
       {mode === CREATE && <Form
         name=""
         // interviewer={}

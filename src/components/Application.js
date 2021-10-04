@@ -39,6 +39,23 @@ export default function Application(props) {
       .catch(error => console.log(error.message));
   }
 
+  function cancelInterview(id) {
+    // note that this can't be done directly:
+    // THIS... --> state.appointments[id].interview = null <-- ...WON'T WORK 
+    // instead, have to use setState
+
+    setState({
+      ...state,
+      appointments: {
+        ...state.appointments,
+        [id]: {
+          ...state.appointments[id],
+          interview: null
+        }
+      }
+    });
+  }
+
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -78,6 +95,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
