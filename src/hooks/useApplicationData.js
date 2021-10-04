@@ -12,8 +12,6 @@ export default function useApplicationData() {
   const setDay = day => setState({ ...state, day });
   const setDays = days => setState(prev => ({ ...prev, days }));
 
-  let dailyAppointments = []
-
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],

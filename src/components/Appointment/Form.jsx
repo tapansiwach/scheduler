@@ -17,7 +17,6 @@ export default function Form(props) {
   };
 
   const onSave = () => {
-    console.log({ name, interviewer })
     props.onSave(name, interviewer);
   }
 

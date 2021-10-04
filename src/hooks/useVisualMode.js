@@ -35,6 +35,5 @@ export default function useVisualMode(initial) {
     mode,
     transition,
     back,
-    history
   };
 }
