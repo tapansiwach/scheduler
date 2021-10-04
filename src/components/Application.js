@@ -54,7 +54,12 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    setState({ ...state, appointments });
+    return axios.delete(`/api/appointments/${id}`, appointment)
+      .then(response => {
+        setState({ ...state, appointments });
+      })
+      .catch(error => console.log(error.message))
+
 
     // ---alternate patterns used earlier---
     // setState({
