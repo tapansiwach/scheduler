@@ -20,8 +20,6 @@ export default function Application(props) {
   let dailyAppointments = []
 
   function bookInterview(id, interview) {
-    // console.log(id, interview);
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -40,10 +38,6 @@ export default function Application(props) {
   }
 
   function cancelInterview(id) {
-    // note that this can't be done directly:
-    // THIS... --> state.appointments[id].interview = null <-- ...WON'T WORK 
-    // instead, have to use setState
-
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -59,19 +53,6 @@ export default function Application(props) {
         setState({ ...state, appointments });
       })
       .catch(error => console.log(error.message))
-
-
-    // ---alternate patterns used earlier---
-    // setState({
-    //   ...state,
-    //   appointments: {
-    //     ...state.appointments,
-    //     [id]: {
-    //       ...state.appointments[id],
-    //       interview: null
-    //     }
-    //   }
-    // });
   }
 
   useEffect(() => {
@@ -80,30 +61,20 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then(all => {
-      // console.log("days", all[0].data)
-      // setState.days
       setDays(all[0].data)
 
-      // console.log("appointments", all[1].data)
-      // setState.appointments
       setState(prev => ({ ...prev, appointments: all[1].data }))
 
-      // console.log("interviewers", all[2].data)
-      // setState.interviewers
       setState(prev => ({ ...prev, interviewers: all[2].data }))
     })
       .catch(error => console.log(error.message));
   }, [])
-  // console.log("state", state);
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
-  // console.log("dailyAppointments", dailyAppointments);
 
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-    // console.log("interview", interview);
     const interviewers = getInterviewersForDay(state, state.day)
-    // console.log("interviewers", interviewers);
 
     return (
       <Appointment
