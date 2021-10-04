@@ -13,6 +13,7 @@ import Form from "./Form";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE"
+const EDIT = "EDIT"
 const SAVING = "SAVING"
 const DELETING = "DELETING"
 const CONFIRM = "CONFIRM"
@@ -50,12 +51,22 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show {...props.interview} onDelete={confirmDeletion} />}
+      {mode === SHOW && <Show {...props.interview}
+        onDelete={confirmDeletion}
+        onEdit={() => transition(EDIT)}
+      />}
       {mode === CREATE && <Form
         name=""
         // interviewer={}
         interviewers={props.interviewers}
         onSave={save}
+        onCancel={() => back()}
+      />}
+      {mode === EDIT && <Form
+        name={props.interview.student}
+        interviewer={props.interview.interviewer}
+        interviewers={props.interviewers}
+        onSave={() => console.log("need to pass onSave handler from index.jsx --> Form.jsx")}
         onCancel={() => back()}
       />}
       {mode === SAVING && <Status message="Saving" />}
