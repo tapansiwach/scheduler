@@ -13,6 +13,7 @@ import Form from "./Form";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE"
+const SAVING = "SAVING"
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
@@ -22,6 +23,8 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+
+    transition(SAVING)
 
     props.bookInterview(props.id, interview)
       .then(() => {
@@ -41,6 +44,7 @@ export default function Appointment(props) {
         onSave={save}
         onCancel={() => back()}
       />}
+      {mode === SAVING && <Status message="Saving" />}
     </article>
   );
 }
