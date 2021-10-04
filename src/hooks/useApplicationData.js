@@ -52,6 +52,27 @@ export default function useApplicationData() {
       })
   }
 
+  /**
+   * 
+   * @param {string} day 
+   * @returns {int} open interview spots for that day
+   */
+  function getSpots(day) {
+    // find the selected day using the day string passed into the function
+    const selectedDay = state.days.filter(x => x.name === day)[0];
+    // if selected day is found...
+    if (selectedDay) {
+      // ... find appointments on that day
+      const appointmentIds = selectedDay.appointments;
+      const appointmentsOnDay = Object.values(state.appointments)
+        .filter(x => appointmentIds.includes(x.id));
+      // find appointments which have interview value of null
+      const openSpots = appointmentsOnDay.filter(x => x.interview === null).length;
+      console.log(openSpots);
+      return openSpots;
+    }
+  };
+
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -66,7 +87,6 @@ export default function useApplicationData() {
     })
       .catch(error => console.log(error.message));
   }, [])
-
 
   return {
     state,
