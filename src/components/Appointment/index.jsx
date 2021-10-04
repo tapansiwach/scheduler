@@ -63,9 +63,9 @@ export default function Appointment(props) {
       />}
       {mode === EDIT && <Form
         name={props.interview.student}
-        interviewer={props.interview.interviewer}
+        interviewer={props.interview.interviewer.id}
         interviewers={props.interviewers}
-        onSave={() => console.log("need to pass onSave handler from index.jsx --> Form.jsx")}
+        onSave={save}
         onCancel={() => back()}
       />}
       {mode === SAVING && <Status message="Saving" />}
