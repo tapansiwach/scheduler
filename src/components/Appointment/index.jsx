@@ -38,7 +38,7 @@ export default function Appointment(props) {
       })
       .catch(error => {
         setErrorMessage(error.message)
-        transition(ERROR_SAVE);
+        transition(ERROR_SAVE, true);
       });
   }
 
@@ -50,7 +50,7 @@ export default function Appointment(props) {
       })
       .catch(error => {
         setErrorMessage(error.message)
-        transition(ERROR_DELETE);
+        transition(ERROR_DELETE, true);
       });
   }
 
@@ -88,8 +88,8 @@ export default function Appointment(props) {
         onCancel={() => transition(SHOW)}
         onConfirm={cancel}
       />}
-      {mode === ERROR_SAVE && <Error message={errorMessage} />}
-      {mode === ERROR_DELETE && <Error message={errorMessage} />}
+      {mode === ERROR_SAVE && <Error message={errorMessage} onClose={back} />}
+      {mode === ERROR_DELETE && <Error message={errorMessage} onClose={back} />}
     </article>
   );
 }
