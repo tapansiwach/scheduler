@@ -44,16 +44,29 @@ export default function Application(props) {
     // THIS... --> state.appointments[id].interview = null <-- ...WON'T WORK 
     // instead, have to use setState
 
-    setState({
-      ...state,
-      appointments: {
-        ...state.appointments,
-        [id]: {
-          ...state.appointments[id],
-          interview: null
-        }
-      }
-    });
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+
+    setState({ ...state, appointments });
+
+    // ---alternate patterns used earlier---
+    // setState({
+    //   ...state,
+    //   appointments: {
+    //     ...state.appointments,
+    //     [id]: {
+    //       ...state.appointments[id],
+    //       interview: null
+    //     }
+    //   }
+    // });
   }
 
   useEffect(() => {
@@ -85,7 +98,7 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview);
     // console.log("interview", interview);
     const interviewers = getInterviewersForDay(state, state.day)
-    console.log("interviewers", interviewers);
+    // console.log("interviewers", interviewers);
 
     return (
       <Appointment
