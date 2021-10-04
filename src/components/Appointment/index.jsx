@@ -21,7 +21,7 @@ const ERROR_SAVE = "ERROR SAVE";
 const ERROR_DELETE = "ERROR DELETE";
 
 export default function Appointment(props) {
-  const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
+  const { mode, transition, back, history } = useVisualMode(props.interview ? SHOW : EMPTY);
   const [errorMessage, setErrorMessage] = useState("");
 
   function save(name, interviewer) {
@@ -57,6 +57,8 @@ export default function Appointment(props) {
   function confirmDeletion() {
     transition(CONFIRM);
   }
+
+  console.log(history)
 
   return (
     <article className="appointment">
