@@ -13,6 +13,9 @@ export default function useApplicationData() {
   const setDays = days => setState(prev => ({ ...prev, days }));
 
   function bookInterview(id, interview) {
+    console.log("id:", id)
+    console.log("interview:", interview)
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -27,6 +30,7 @@ export default function useApplicationData() {
       .then(response => {
         setState({ ...state, appointments });
       })
+      .then(() => updateSpots(id, appointments))
       .catch((error => {
         throw error;
       }));
@@ -46,7 +50,9 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`, appointment)
       .then(response => {
         setState({ ...state, appointments });
+        // updateSpots();
       })
+      .then(() => updateSpots(id, appointments))
       .catch(error => {
         throw error;
       })
@@ -72,6 +78,67 @@ export default function useApplicationData() {
       return openSpots;
     }
   };
+
+  const findDay = (days, id) => {
+    for (let day of days) {
+      for (let appintmentId of day.appointments) {
+        if (appintmentId === id) {
+          return day;
+        }
+      }
+    }
+  }
+
+  /**
+   * 
+   * @param {int} id is the appointment's id
+   * @param {booean} deleted is if the appintment is deleted instead of added
+   */
+  function updateSpots(id, appointments) {
+    // console.log(state.days)
+    // const dayid = state.days.find(x => x.appointments.includes(id));
+    // console.log(dayid);
+    const foundDay = findDay(state.days, id);
+    console.log(foundDay);
+    // .find() to find the day object inside days []
+    // const selectedDay = copy.days.find(x => x.name = copy.day);
+    let remainingSpots = 0;
+    for (let appointmentId of foundDay.appointments) {
+      if (appointments[appointmentId].interview === null) {
+        remainingSpots++;
+      }
+    }
+    console.log(remainingSpots);
+
+    // .findIndex() to find the day index inside days []
+    // const selectedDayIndex = copy.days.findIndex(x => x.name === copy.name);
+
+    // Spots are the amount of interviews with null as a value
+    // .filter() to find all the nulls
+    // const availableAppointments = Object.values(copy.appointments)
+    //   .filter(x => x.interview === null && selectedDay.appointments.includes(x.id));
+
+    // .length to count
+    // const availableSpots = availableAppointments.length;
+    // console.log(`${availableSpots} spots available: ${availableAppointments}`)
+    // Appointments for a day are: ids of relevant appointments are inside the day object inside the days array
+    // We use length to check how many
+    // To update safely
+    // Spread the day object
+    foundDay.spots = remainingSpots;
+    const foundDayIndex = state.days.findIndex(day => day.id === foundDay.id);
+    console.log("foundDayIndex:", foundDayIndex);
+    const days = [...state.days];
+    days[foundDayIndex] = foundDay;
+    setDays(days);
+
+    // Spread the days array
+    // Put the updated day object inside the array (index)
+
+  }
+
+  console.log(state);
+  // updateSpots();
 
   useEffect(() => {
     Promise.all([
