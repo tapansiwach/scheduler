@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "components/Appointment/styles.scss"
 import Header from "./Header";
@@ -17,9 +17,12 @@ const EDIT = "EDIT"
 const SAVING = "SAVING"
 const DELETING = "DELETING"
 const CONFIRM = "CONFIRM"
+const ERROR_SAVE = "ERROR SAVE";
+const ERROR_DELETE = "ERROR DELETE";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function save(name, interviewer) {
     const interview = {
@@ -32,6 +35,10 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW)
+      })
+      .catch(error => {
+        setErrorMessage(error.message)
+        transition(ERROR_SAVE);
       });
   }
 
@@ -40,6 +47,10 @@ export default function Appointment(props) {
     props.cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
+      })
+      .catch(error => {
+        setErrorMessage(error.message)
+        transition(ERROR_DELETE);
       });
   }
 
@@ -75,6 +86,8 @@ export default function Appointment(props) {
         onCancel={() => transition(SHOW)}
         onConfirm={cancel}
       />}
+      {mode === ERROR_SAVE && <Error message={errorMessage} />}
+      {mode === ERROR_DELETE && <Error message={errorMessage} />}
     </article>
   );
 }

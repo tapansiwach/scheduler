@@ -34,7 +34,9 @@ export default function Application(props) {
       .then(response => {
         setState({ ...state, appointments });
       })
-      .catch(error => console.log(error.message));
+      .catch((error => {
+        throw error;
+      }));
   }
 
   function cancelInterview(id) {
@@ -52,7 +54,9 @@ export default function Application(props) {
       .then(response => {
         setState({ ...state, appointments });
       })
-      .catch(error => console.log(error.message))
+      .catch(error => {
+        throw error;
+      })
   }
 
   useEffect(() => {
