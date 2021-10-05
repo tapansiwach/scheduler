@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -26,10 +26,6 @@ export default function Form(props) {
     reset();
     props.onCancel();
   };
-
-  const onSave = () => {
-    props.onSave(name, interviewer);
-  }
 
   return (
     <main className="appointment__card appointment__card--create">

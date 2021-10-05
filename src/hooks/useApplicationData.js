@@ -13,9 +13,6 @@ export default function useApplicationData() {
   const setDays = days => setState(prev => ({ ...prev, days }));
 
   function bookInterview(id, interview) {
-    console.log("id:", id)
-    console.log("interview:", interview)
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -58,27 +55,6 @@ export default function useApplicationData() {
       })
   }
 
-  /**
-   * 
-   * @param {string} day 
-   * @returns {int} open interview spots for that day
-   */
-  function getSpots(day) {
-    // find the selected day using the day string passed into the function
-    const selectedDay = state.days.filter(x => x.name === day)[0];
-    // if selected day is found...
-    if (selectedDay) {
-      // ... find appointments on that day
-      const appointmentIds = selectedDay.appointments;
-      const appointmentsOnDay = Object.values(state.appointments)
-        .filter(x => appointmentIds.includes(x.id));
-      // find appointments which have interview value of null
-      const openSpots = appointmentsOnDay.filter(x => x.interview === null).length;
-      console.log(openSpots);
-      return openSpots;
-    }
-  };
-
   const findDay = (days, id) => {
     for (let day of days) {
       for (let appintmentId of day.appointments) {
@@ -96,7 +72,6 @@ export default function useApplicationData() {
    */
   function updateSpots(id, appointments) {
     const foundDay = findDay(state.days, id);
-    // console.log(foundDay);
 
     let remainingSpots = 0;
     for (let appointmentId of foundDay.appointments) {
@@ -104,19 +79,15 @@ export default function useApplicationData() {
         remainingSpots++;
       }
     }
-    // console.log(remainingSpots);
 
 
     foundDay.spots = remainingSpots;
     const foundDayIndex = state.days.findIndex(day => day.id === foundDay.id);
-    // console.log("foundDayIndex:", foundDayIndex);
     const days = [...state.days];
     days[foundDayIndex] = foundDay;
     setDays(days);
 
   }
-
-  // console.log(state);
 
   useEffect(() => {
     Promise.all([
