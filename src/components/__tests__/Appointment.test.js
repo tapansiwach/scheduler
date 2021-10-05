@@ -7,5 +7,7 @@ import Appointment from "components/Appointment";
 afterEach(cleanup);
 
 describe("Appointment", () => {
+  it("renders", () => {
 
+  });
 });
