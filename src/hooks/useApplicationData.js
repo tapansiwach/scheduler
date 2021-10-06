@@ -47,7 +47,6 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`, appointment)
       .then(response => {
         setState({ ...state, appointments });
-        // updateSpots();
       })
       .then(() => updateSpots(id, appointments))
       .catch(error => {
@@ -68,7 +67,7 @@ export default function useApplicationData() {
   /**
    * 
    * @param {int} id is the appointment's id
-   * @param {booean} deleted is if the appintment is deleted instead of added
+   * @param {object} appointments
    */
   function updateSpots(id, appointments) {
     const foundDay = findDay(state.days, id);
@@ -79,7 +78,6 @@ export default function useApplicationData() {
         remainingSpots++;
       }
     }
-
 
     foundDay.spots = remainingSpots;
     const foundDayIndex = state.days.findIndex(day => day.id === foundDay.id);
