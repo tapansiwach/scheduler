@@ -13,9 +13,9 @@ describe("Navigation", () => {
 
   it("bakground color of Tuesday should be offwhite", () => {
     cy.visit("/");
-    cy.get("li").contains("Tuesday").click();
 
     cy.contains("li", "Tuesday")
+      .click()
       .should("have.css", "background-color", "rgb(242, 242, 242)");
   });
 
