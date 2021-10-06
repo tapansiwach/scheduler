@@ -11,12 +11,12 @@ describe("Navigation", () => {
 
   // #f2f2f2
 
-  it("bakground color of Tuesday should be offwhite", () => {
+  it("Tuesday should have a css class for selected after it is clicked", () => {
     cy.visit("/");
 
     cy.contains("li", "Tuesday")
       .click()
-      .should("have.css", "background-color", "rgb(242, 242, 242)");
+      .should("have.class", "day-list__item--selected");
   });
 
 });
