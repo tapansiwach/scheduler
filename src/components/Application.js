@@ -9,6 +9,7 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "help
 
 export default function Application() {
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
+  console.log("state:", state);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -52,7 +53,9 @@ export default function Application() {
         />      </section>
       <section className="schedule">
         {schedule}
+        <Appointment key="last" time="5pm" />
       </section>
+
     </main>
   );
 }
