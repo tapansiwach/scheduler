@@ -53,7 +53,6 @@ The application makes API requests to load and persist data. We do not lose data
 ## Technical Specifications
 - React
 - Webpack, Babel
-- Axios, WebSockets
 - Axios
 - Storybook, Webpack Dev Server, Jest, Testing Library
 - The Scheduler client application is created using Create React App. Express is the basis for the Scheduler API server application. Both servers run concurrently; requests are proxied from the Webpack development server to the API server.
